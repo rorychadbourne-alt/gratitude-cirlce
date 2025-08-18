@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { supabase, Profile, Circle } from '@/lib/supabase.ts'
+import { supabase, Profile, Circle } from '@/lib/supabase'
 
 interface DashboardProps {
   user: any
