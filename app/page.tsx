@@ -37,7 +37,7 @@ export default function Home() {
           ✅ Basic React is Working!
         </h1>
         <p className="text-lg text-gray-700 mb-8">
-          Now we'll add back your components one by one...
+          Now we&apos;ll add back your components one by one...
         </p>
         
         <div className="space-y-4">
