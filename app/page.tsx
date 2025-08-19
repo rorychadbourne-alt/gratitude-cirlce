@@ -2,17 +2,24 @@
 
 import { useEffect, useState } from 'react'
 import { supabase, Profile } from '@/lib/supabase'
-import SignIn from '@/components/SignIn'
-import Dashboards from '@/components/Dashboards'
+import SignIn from '../components/SignIn'
+import Dashboards from '../components/Dashboards'
+
+console.log('🚀 PAGE.TSX IS DEFINITELY RUNNING')
 
 export default function Home() {
+  console.log('🔍 Page.tsx is running!')
+  
   const [user, setUser] = useState<any>(null)
   const [profile, setProfile] = useState<Profile | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    console.log('🔍 useEffect running')
+    
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log('🔍 Session:', session)
       setUser(session?.user ?? null)
       if (session?.user) {
         fetchProfile(session.user.id)
@@ -23,6 +30,7 @@ export default function Home() {
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      console.log('🔍 Auth state changed:', event, session)
       setUser(session?.user ?? null)
       if (session?.user) {
         fetchProfile(session.user.id)
@@ -36,6 +44,7 @@ export default function Home() {
   }, [])
 
   const fetchProfile = async (userId: string) => {
+    console.log('🔍 Fetching profile for:', userId)
     try {
       const { data, error } = await supabase
         .from('profiles')
@@ -44,15 +53,19 @@ export default function Home() {
         .single()
 
       if (error) throw error
+      console.log('🔍 Profile fetched:', data)
       setProfile(data)
     } catch (error) {
-      console.error('Error fetching profile:', error)
+      console.error('❌ Error fetching profile:', error)
     } finally {
       setLoading(false)
     }
   }
 
+  console.log('🔍 Current state:', { user: !!user, profile: !!profile, loading })
+
   if (loading) {
+    console.log('🔍 Showing loading screen')
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -64,8 +77,10 @@ export default function Home() {
   }
 
   if (!user || !profile) {
+    console.log('🔍 Showing SignIn component')
     return <SignIn />
   }
 
+  console.log('🔍 Showing Dashboards component')
   return <Dashboards user={user} profile={profile} />
 }
