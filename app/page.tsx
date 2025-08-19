@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { supabase, Profile } from '@/lib/supabase'
 import SignIn from '@/components/SignIn'
-import Dashboard from '@/components/Dashboards'
+import Dashboards from '@/components/Dashboards'
 
 export default function Home() {
   const [user, setUser] = useState<any>(null)
@@ -67,5 +67,5 @@ export default function Home() {
     return <SignIn />
   }
 
-  return <Dashboard user={user} profile={profile} />
+  return <Dashboards user={user} profile={profile} />
 }

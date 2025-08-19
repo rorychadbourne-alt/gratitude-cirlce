@@ -33,7 +33,7 @@ export default function Dashboard({ user, profile }: DashboardProps) {
         .eq('user_id', user.id)
 
       if (error) throw error
-      setCircles(data?.map(item => item.circles).filter(Boolean) || [])
+      setCircles(data?.map((item: any) => item.circles).filter(Boolean) || [])
     } catch (error) {
       console.error('Error fetching circles:', error)
     } finally {
