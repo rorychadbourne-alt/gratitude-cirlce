@@ -8,7 +8,7 @@ interface DashboardProps {
   profile: Profile
 }
 
-export default function Dashboard({ user, profile }: DashboardProps) {
+export default function Dashboards({ user, profile }: DashboardProps) {
   const [circles, setCircles] = useState<Circle[]>([])
   const [loading, setLoading] = useState(true)
 
